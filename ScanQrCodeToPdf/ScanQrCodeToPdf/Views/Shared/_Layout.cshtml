@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+
+    @*BOOTSTRPA*@
+    <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    @*JQUERY*@
+    <script src="~/Content/Scripts/jquery2/jquery-2.2.1.min.js"></script>
+
+    @*layer*@
+    <script src="~/Content/layer/layer.js"></script>
+
+    @*VUE*@
+    <script src="~/Content/vue-2.5.17/vue.js"></script>
+
+    @*SELF*@
+    <script src="~/Content/SY/SY.js"></script>
+</head>
+<body>
+    @*@Html.ActionLink("Application name", "Index", "MVC/Basics", new { area = "" }, new { @class = "navbar-brand" })*@
+    <br />
+    @RenderBody()
+</body>
+</html>

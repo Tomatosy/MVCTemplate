@@ -1,0 +1,104 @@
+﻿@{
+    /**/
+
+    ViewData["Title"] = "导出pdf";
+}
+<style>
+    #app {
+        position: fixed;
+        width: 100%;
+        height: 300px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+    }
+
+    .top_p {
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
+
+
+
+    .cen_span {
+        font-size: 30px;
+        margin-right: 20px;
+        height: 70px;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 70px;
+    }
+
+    .cen_inp {
+        width: 400px;
+        height: 40px;
+    }
+
+    .div_bot {
+        margin-top: 20px;
+        font-size: 23px;
+        color: #428bca;
+    }
+</style>
+
+
+<div id="app">
+    <p class="top_p">报销单自助打印</p>
+    <div class="div_cen">
+        <span class="cen_span">请对准机器扫描单据号二维码</span>
+        <input class="cen_inp" type="password" id="orderNo" />
+    </div>
+    <div class="div_bot">二维码获取方式：进入学校企业微信智能报账-我的-查看报销单-点开二维码图标</div>
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(function () {
+        var $inputs = $("input[type=password]");
+        $inputs[0].focus(event);
+        //$("#orderNo").focus();
+        $("#orderNo").keypress(function (event) {
+            if (event.keyCode == 13) {
+                // $.post("/ScanQrCodeToPdf/home/QrCodeToPdf", { orderNo: $("#orderNo").val() },
+                $.post("/home/QrCodeToPdf", { orderNo: $("#orderNo").val() },
+                    function (res) {
+                        if (res.errcode == 0) {
+                            $("#orderNo").val("");
+                            layer.msg("打印成功!");
+                        } else if (res.errcode == -2) {
+                            layer.msg(res.errmsg);
+                        } else {
+                            layer.msg("单号查询失败,请稍后再试！");
+                            console.log(res.errmsg);
+                        }
+
+                    }, "json");
+            }
+
+            $inputs[0].focus(event);
+        });
+
+        //$("#orderNo").change(function () {
+        //    $.post("/home/QrCodeToPdf", { orderNo: $("#orderNo").val() },
+        //        function (res) {
+        //            if (res.errcode == 0) {
+        //                layer.msg("初始化中间表成功!");
+        //            } else {
+        //                layer.msg(res.errmsg);
+        //                console.log(res.errmsg);
+        //            }
+
+        //        }, "json");
+        //});
+    });
+</script>
+<style>
+    .aaaclass {
+        display: none;
+    }
+</style>
